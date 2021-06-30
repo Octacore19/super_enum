@@ -13,7 +13,7 @@ abstract class MoviesResponse extends Equatable {
   const MoviesResponse(this._type);
 
   /// Success State of the MovieResponse
-  factory MoviesResponse.success({@required Movies movies}) = Success.create;
+  factory MoviesResponse.success({required Movies movies}) = Success.create;
 
   /// Unauthorized State of the MovieResponse
   factory MoviesResponse.unauthorized() = Unauthorized.create;
@@ -22,7 +22,7 @@ abstract class MoviesResponse extends Equatable {
   factory MoviesResponse.noNetwork() = NoNetwork.create;
 
   /// UnexpectedException State of the MovieResponse
-  factory MoviesResponse.unexpectedException({@required Exception exception}) =
+  factory MoviesResponse.unexpectedException({required Exception exception}) =
       UnexpectedException.create;
 
   final _MoviesResponse _type;
@@ -30,10 +30,10 @@ abstract class MoviesResponse extends Equatable {
   /// The [when] method is the equivalent to pattern matching.
   /// Its prototype depends on the _MoviesResponse [_type]s defined.
   R when<R extends Object>(
-      {@required R Function(Success) success,
-      @required R Function() unauthorized,
-      @required R Function() noNetwork,
-      @required R Function(UnexpectedException) unexpectedException}) {
+      {required R Function(Success) success,
+      required R Function() unauthorized,
+      required R Function() noNetwork,
+      required R Function(UnexpectedException) unexpectedException}) {
     assert(() {
       if (success == null ||
           unauthorized == null ||
@@ -61,11 +61,11 @@ abstract class MoviesResponse extends Equatable {
   /// On the other hand, it adds an extra orElse required parameter,
   /// for fallback behavior.
   R whenOrElse<R extends Object>(
-      {R Function(Success) success,
-      R Function() unauthorized,
-      R Function() noNetwork,
-      R Function(UnexpectedException) unexpectedException,
-      @required R Function(MoviesResponse) orElse}) {
+      {R Function(Success)? success,
+      R Function()? unauthorized,
+      R Function()? noNetwork,
+      R Function(UnexpectedException)? unexpectedException,
+      required R Function(MoviesResponse) orElse}) {
     assert(() {
       if (orElse == null) {
         throw 'Missing orElse case';
@@ -92,10 +92,10 @@ abstract class MoviesResponse extends Equatable {
   /// The [whenPartial] method is equivalent to [whenOrElse],
   /// but non-exhaustive.
   void whenPartial(
-      {void Function(Success) success,
-      void Function() unauthorized,
-      void Function() noNetwork,
-      void Function(UnexpectedException) unexpectedException}) {
+      {void Function(Success)? success,
+      void Function()? unauthorized,
+      void Function()? noNetwork,
+      void Function(UnexpectedException)? unexpectedException}) {
     assert(() {
       if (success == null &&
           unauthorized == null &&
@@ -128,10 +128,10 @@ abstract class MoviesResponse extends Equatable {
 /// Success State of the MovieResponse
 @immutable
 abstract class Success extends MoviesResponse {
-  const Success({@required this.movies}) : super(_MoviesResponse.Success);
+  const Success({required this.movies}) : super(_MoviesResponse.Success);
 
   /// Success State of the MovieResponse
-  factory Success.create({@required Movies movies}) = _SuccessImpl;
+  factory Success.create({required Movies movies}) = _SuccessImpl;
 
   final Movies movies;
 
@@ -142,7 +142,7 @@ abstract class Success extends MoviesResponse {
 
 @immutable
 class _SuccessImpl extends Success {
-  const _SuccessImpl({@required this.movies}) : super(movies: movies);
+  const _SuccessImpl({required this.movies}) : super(movies: movies);
 
   @override
   final Movies movies;
@@ -194,11 +194,11 @@ class _NoNetworkImpl extends NoNetwork {
 /// UnexpectedException State of the MovieResponse
 @immutable
 abstract class UnexpectedException extends MoviesResponse {
-  const UnexpectedException({@required this.exception})
+  const UnexpectedException({required this.exception})
       : super(_MoviesResponse.UnexpectedException);
 
   /// UnexpectedException State of the MovieResponse
-  factory UnexpectedException.create({@required Exception exception}) =
+  factory UnexpectedException.create({required Exception exception}) =
       _UnexpectedExceptionImpl;
 
   final Exception exception;
@@ -210,7 +210,7 @@ abstract class UnexpectedException extends MoviesResponse {
 
 @immutable
 class _UnexpectedExceptionImpl extends UnexpectedException {
-  const _UnexpectedExceptionImpl({@required this.exception})
+  const _UnexpectedExceptionImpl({required this.exception})
       : super(exception: exception);
 
   @override

@@ -34,11 +34,11 @@ class MoviesFetcher {
 
   final String apiKey;
 
-  MoviesFetcher({@required this.apiKey});
+  MoviesFetcher({required this.apiKey});
 
   Future<MoviesResponse> fetchMovies() async {
     try {
-      final response = await client.get('$_baseUrl/popular?api_key=$apiKey');
+      final response = await client.get(Uri.parse('$_baseUrl/popular?api_key=$apiKey'));
       if (response.statusCode == 200) {
         final movies = Movies.fromJson(json.decode(response.body));
         return MoviesResponse.success(movies: movies);
@@ -48,7 +48,7 @@ class MoviesFetcher {
     } on SocketException {
       return MoviesResponse.noNetwork();
     } catch (e) {
-      return MoviesResponse.unexpectedException(exception: e);
+      return MoviesResponse.unexpectedException(exception: e as Exception);
     }
   }
 }
@@ -60,12 +60,12 @@ void main() async {
 
   final _moviesResponse = await _moviesFetcher.fetchMovies();
 
-  _moviesResponse.when(
+  /* _moviesResponse.when(
     success: (data) => print('Total Movies: ${data.movies.totalPages}'),
     unauthorized: () => print('Invalid ApiKey'),
     noNetwork: () => print(
       'No Internet, Please check your internet connection',
     ),
     unexpectedException: (error) => print(error.exception),
-  );
+  ); */
 }

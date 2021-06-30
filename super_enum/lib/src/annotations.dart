@@ -28,7 +28,7 @@ class ObjectClass {
 class Data {
   final List<DataField> fields;
 
-  const Data({@required this.fields});
+  const Data({required this.fields});
 }
 
 /// Mark the generated type as generic.
@@ -64,9 +64,9 @@ class Generic {
 @immutable
 class DataField<T> {
   final String name;
-  final bool required;
+  final bool important;
 
-  const DataField(this.name, {this.required = true});
+  const DataField(this.name, {this.important = true});
 }
 
 /// Marks the class as a [UseClass]
@@ -76,7 +76,7 @@ class DataField<T> {
 @immutable
 class UseClass {
   final Type type;
-  final String name;
+  final String? name;
 
   const UseClass(this.type, {this.name});
 }
